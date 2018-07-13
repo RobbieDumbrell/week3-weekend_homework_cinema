@@ -2,6 +2,7 @@ require('pry-byebug')
 require_relative('models/customer')
 require_relative('models/film')
 require_relative('models/ticket')
+require_relative('models/screening')
 
 
 customer1 = Customer.new({
@@ -37,29 +38,54 @@ film2 = Film.new({
 # film1.save()
 # film2.save()
 
+screening1 = Screening.new({
+  'film_id' => film1.id,
+  'show_time' => '19:00'
+  })
+
+screening2 = Screening.new({
+  'film_id' => film1.id,
+  'show_time' => '22:00'
+  })
+
+screening3 = Screening.new({
+  'film_id' => film2.id,
+  'show_time' => '17:00'
+  })
+
+screening4 = Screening.new({
+  'film_id' => film2.id,
+  'show_time' => '20:00'
+  })
+
+# screening1.save()
+# screening2.save()
+# screening3.save()
+# screening4.save()
+
 ticket1 = Ticket.new({
   'customer_id' => customer1.id,
-  'film_id' => film1.id
+  'screening_id' => screening4.id
   })
 
 ticket2 = Ticket.new({
   'customer_id' => customer1.id,
-  'film_id' => film1.id
+  'screening_id' => screening1.id
   })
 
 ticket3 = Ticket.new({
   'customer_id' => customer2.id,
-  'film_id' => film2.id
+  'screening_id' => screening3.id
   })
 
 ticket4 = Ticket.new({
   'customer_id' => customer3.id,
-  'film_id' => film1.id
+  'screening_id' => screening2.id
   })
 
 ticket5 = Ticket.new({
   'customer_id' => customer1.id,
-  'film_id' => film1.id
+  'screening_id' => screening1.id
   })
 
 
@@ -83,6 +109,7 @@ ticket5 = Ticket.new({
 james_bond = Film.find_by_id(1)
 star_wars = Film.find_by_id(2)
 # ticket1 = Ticket.find_by_id(1)
+# screening = Screening.find_by_id(1)
 
 # customer1.name = 'Mark'
 # customer1.funds = '30'
@@ -98,6 +125,9 @@ star_wars = Film.find_by_id(2)
 #
 # ticket.update()
 
+# screening.film_id = star_wars.id
+# screening.update()
+
 # customer2.delete()
 # film1.delete()
 # ticket1.delete()
@@ -110,5 +140,7 @@ star_wars = Film.find_by_id(2)
 
 # p robbie.ticket_count()
 
-p james_bond.ticket_count()
-p star_wars.ticket_count()
+# p james_bond.ticket_count()
+# p star_wars.ticket_count()
+
+p james_bond.most_popular_screening

@@ -1,5 +1,6 @@
 require_relative('../db/sql_runner')
 require_relative('customer.rb')
+require_relative('ticket.rb')
 
 class Film
 
@@ -61,6 +62,20 @@ class Film
   # How many tickets have been sold for a film?
   def ticket_count()
     return self.booked_customers.count
+  end
+
+  # What is the most popular screening time of a film?
+  def most_popular_screening()
+    sql = "SELECT tickets.* FROM tickets
+          INNER JOIN screenings
+	         ON screenings.id = tickets.screening_id
+          WHERE film_id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values) # array of hashes.
+    tickets = result.map { |ticket_hash| Ticket.new(ticket_hash) } # array of ticket objects.
+    tickets_screenings = tickets.map { |ticket| ticket.screening_id } # array of screening_ids
+    most_common_screening_id = tickets_screenings.max_by {|x| tickets_screenings.count(x) } # returns the most common screening_id.
+    return Screening.find_by_id(most_common_screening_id) # creates screening object to return most popular show_time.
   end
 
 end
