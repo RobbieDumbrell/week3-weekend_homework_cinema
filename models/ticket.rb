@@ -19,15 +19,22 @@ class Ticket
     customer = Customer.find_by_id(@customer_id)
     screening = Screening.find_by_id(@screening_id)
     film = Film.find_by_id(screening.film_id)
-    if customer.funds >= film.price # only saves ticket if the customer has the funds.
-      sql = "INSERT INTO tickets (customer_id, screening_id) VALUES ($1, $2) RETURNING id;"
-      values = [@customer_id, @screening_id]
-      result = SqlRunner.run(sql, values)
-      @id = result[0]['id'].to_i
-      customer.funds -= film.price
-      customer.update() # updates customer funds by film price.
+
+    if screening.available_seats >= 1
+      if customer.funds >= film.price # only saves ticket if the customer has the funds.
+        sql = "INSERT INTO tickets (customer_id, screening_id) VALUES ($1, $2) RETURNING id;"
+        values = [@customer_id, @screening_id]
+        result = SqlRunner.run(sql, values)
+        @id = result[0]['id'].to_i
+        customer.funds -= film.price
+        customer.update() # updates customer funds by film price.
+        screening.available_seats -= 1
+        screening.update() # updates screening available_seats by decreasing by 1.
+      else
+        p "Customer with id #{customer.id} does not have the funds, ticket not generated."
+      end
     else
-      return "Customer does not have the funds, ticket not generated."
+      p "Screening with id #{screening.id} has no available seats left, ticket not generated."
     end
   end
 
@@ -45,7 +52,7 @@ class Ticket
     sql = "UPDATE tickets
           SET (customer_id, screening_id) = ($1, $2)
           WHERE id = $3"
-    values = [@customer_id, @film_id, @screening_id, @id]
+    values = [@customer_id, @screening_id, @id]
     SqlRunner.run(sql, values)
   end
 

@@ -49,8 +49,10 @@ class Customer
   # Lists all films a customer has booked to see.
   def booked_films()
     sql = "SELECT films.* FROM films
+          INNER JOIN screenings
+	         ON films.id = screenings.film_id
           INNER JOIN tickets
-	         ON films.id = tickets.film_id
+            ON screenings.id = tickets.screening_id
           WHERE tickets.customer_id = $1;"
     values = [@id]
     result = SqlRunner.run(sql, values) # array of hashes.

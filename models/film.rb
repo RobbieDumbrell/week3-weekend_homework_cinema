@@ -51,8 +51,10 @@ class Film
   def booked_customers()
     sql = "SELECT customers.* FROM customers
           INNER JOIN tickets
-	         ON customers.id = tickets.customer_id
-          WHERE tickets.film_id = $1;"
+          	ON customers.id = tickets.customer_id
+          INNER JOIN screenings
+          	ON tickets.screening_id = screenings.id
+          WHERE screenings.film_id = $1;"
     values = [@id]
     result = SqlRunner.run(sql, values) # array of hashes.
     booked_customers = result.map { |customer| Customer.new(customer) }
@@ -69,13 +71,14 @@ class Film
     sql = "SELECT tickets.* FROM tickets
           INNER JOIN screenings
 	         ON screenings.id = tickets.screening_id
-          WHERE film_id = $1"
+          WHERE film_id = $1;"
     values = [@id]
     result = SqlRunner.run(sql, values) # array of hashes.
     tickets = result.map { |ticket_hash| Ticket.new(ticket_hash) } # array of ticket objects.
-    tickets_screenings = tickets.map { |ticket| ticket.screening_id } # array of screening_ids
-    most_common_screening_id = tickets_screenings.max_by {|x| tickets_screenings.count(x) } # returns the most common screening_id.
-    return Screening.find_by_id(most_common_screening_id) # creates screening object to return most popular show_time.
+    screening_ids = tickets.map { |ticket| ticket.screening_id } # array of screening_ids
+    most_common_screening_id = screening_ids.max_by {|x| screening_ids.count(x) } # returns the most common screening_id.
+    screening = Screening.find_by_id(most_common_screening_id) # creates screening object to return most popular screening as object.
+    return screening.show_time
   end
 
 end

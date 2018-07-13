@@ -40,22 +40,30 @@ film2 = Film.new({
 
 screening1 = Screening.new({
   'film_id' => film1.id,
-  'show_time' => '19:00'
+  'show_time' => '19:00',
+  'total_seats' => '4',
+  'available_seats' => '4'
   })
 
 screening2 = Screening.new({
   'film_id' => film1.id,
-  'show_time' => '22:00'
+  'show_time' => '22:00',
+  'total_seats' => '3',
+  'available_seats' => '3'
   })
 
 screening3 = Screening.new({
   'film_id' => film2.id,
-  'show_time' => '17:00'
+  'show_time' => '17:00',
+  'total_seats' => '3',
+  'available_seats' => '3'
   })
 
 screening4 = Screening.new({
   'film_id' => film2.id,
-  'show_time' => '20:00'
+  'show_time' => '20:00',
+  'total_seats' => '4',
+  'available_seats' => '4'
   })
 
 # screening1.save()
@@ -106,26 +114,28 @@ ticket5 = Ticket.new({
 
 # robbie = Customer.find_by_id(1)
 # ellie = Customer.find_by_id(2)
+# jack = Customer.find_by_id(3)
 james_bond = Film.find_by_id(1)
 star_wars = Film.find_by_id(2)
-# ticket1 = Ticket.find_by_id(1)
+# ticket = Ticket.find_by_id(1)
 # screening = Screening.find_by_id(1)
 
-# customer1.name = 'Mark'
-# customer1.funds = '30'
+# robbie.name = 'Mark'
+# robbie.funds = '30'
 #
-# customer1.update
+# robbie.update
 
-# a_film.title = 'Star Wars'
-# a_film.price = '15'
+# star_wars.title = 'Rogue One'
+# star_wars.price = '15'
 #
-# a_film.update
+# star_wars.update
 
-# ticket.customer_id = customer2.id
-#
+# ticket.customer_id = ellie.id
+
 # ticket.update()
 
 # screening.film_id = star_wars.id
+# screening.show_time = '14:30'
 # screening.update()
 
 # customer2.delete()
@@ -139,8 +149,11 @@ star_wars = Film.find_by_id(2)
 # p star_wars.booked_customers()
 
 # p robbie.ticket_count()
+# p ellie.ticket_count()
+# p jack.ticket_count()
 
 # p james_bond.ticket_count()
 # p star_wars.ticket_count()
 
+p star_wars.most_popular_screening
 p james_bond.most_popular_screening
