@@ -14,8 +14,15 @@ customer2 = Customer.new({
   'funds' => '50'
   })
 
-# customer1.save()
-# customer2.save()
+customer3 = Customer.new({
+  'name' => 'Jack',
+  'funds' => '5'
+  })
+
+customer1.save()
+customer2.save()
+customer3.save()
+
 
 film1 = Film.new({
   'title' => 'James Bond',
@@ -27,8 +34,8 @@ film2 = Film.new({
   'price' => '15'
   })
 
-# film1.save()
-# film2.save()
+film1.save()
+film2.save()
 
 ticket1 = Ticket.new({
   'customer_id' => customer1.id,
@@ -45,6 +52,13 @@ ticket3 = Ticket.new({
   'film_id' => film2.id
   })
 
+ticket4 = Ticket.new({
+  'customer_id' => customer3.id,
+  'film_id' => film1.id
+  })
+
+
+
 
 
 
@@ -53,14 +67,15 @@ ticket3 = Ticket.new({
 
 # binding.pry
 
-# ticket1.save()
-# ticket2.save()
-# ticket3.save()
+ticket1.save()
+ticket2.save()
+ticket3.save()
+ticket4.save() # shouldn't work
 
 # robbie = Customer.find_by_id(1)
 # ellie = Customer.find_by_id(2)
-james_bond = Film.find_by_id(1)
-star_wars = Film.find_by_id(2)
+# james_bond = Film.find_by_id(1)
+# star_wars = Film.find_by_id(2)
 # ticket1 = Ticket.find_by_id(1)
 
 # customer1.name = 'Mark'
@@ -84,5 +99,5 @@ star_wars = Film.find_by_id(2)
 # p robbie.booked_films()
 # p ellie.booked_films()
 
-p james_bond.booked_customers()
-p star_wars.booked_customers()
+# p james_bond.booked_customers()
+# p star_wars.booked_customers()

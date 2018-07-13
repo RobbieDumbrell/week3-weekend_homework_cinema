@@ -1,4 +1,6 @@
 require_relative('../db/sql_runner')
+require_relative('customer')
+require_relative('film')
 
 class Ticket
 
@@ -13,10 +15,18 @@ class Ticket
 
   # Create
   def save()
-    sql = "INSERT INTO tickets (customer_id, film_id) VALUES ($1, $2) RETURNING id;"
-    values = [@customer_id, @film_id]
-    result = SqlRunner.run(sql, values)
-    @id = result[0]['id'].to_i
+    customer = Customer.find_by_id(@customer_id)
+    film = Film.find_by_id(@film_id)
+    if customer.funds >= film.price # only saves ticket if the customer has the funds.
+      sql = "INSERT INTO tickets (customer_id, film_id) VALUES ($1, $2) RETURNING id;"
+      values = [@customer_id, @film_id]
+      result = SqlRunner.run(sql, values)
+      @id = result[0]['id'].to_i
+      customer.funds -= film.price
+      customer.update() # updates customer funds by film price.
+    else
+      return "Customer does not have the funds, ticket not generated."
+    end
   end
 
   # Read
