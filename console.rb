@@ -19,9 +19,9 @@ customer3 = Customer.new({
   'funds' => '5'
   })
 
-customer1.save()
-customer2.save()
-customer3.save()
+# customer1.save()
+# customer2.save()
+# customer3.save()
 
 
 film1 = Film.new({
@@ -34,8 +34,8 @@ film2 = Film.new({
   'price' => '15'
   })
 
-film1.save()
-film2.save()
+# film1.save()
+# film2.save()
 
 ticket1 = Ticket.new({
   'customer_id' => customer1.id,
@@ -44,7 +44,7 @@ ticket1 = Ticket.new({
 
 ticket2 = Ticket.new({
   'customer_id' => customer1.id,
-  'film_id' => film2.id
+  'film_id' => film1.id
   })
 
 ticket3 = Ticket.new({
@@ -57,6 +57,11 @@ ticket4 = Ticket.new({
   'film_id' => film1.id
   })
 
+ticket5 = Ticket.new({
+  'customer_id' => customer1.id,
+  'film_id' => film1.id
+  })
+
 
 
 
@@ -66,16 +71,17 @@ ticket4 = Ticket.new({
 # p film1
 
 # binding.pry
-
-ticket1.save()
-ticket2.save()
-ticket3.save()
-ticket4.save() # shouldn't work
+#
+# ticket1.save()
+# ticket2.save()
+# ticket3.save()
+# ticket4.save() # shouldn't work
+# ticket5.save()
 
 # robbie = Customer.find_by_id(1)
 # ellie = Customer.find_by_id(2)
-# james_bond = Film.find_by_id(1)
-# star_wars = Film.find_by_id(2)
+james_bond = Film.find_by_id(1)
+star_wars = Film.find_by_id(2)
 # ticket1 = Ticket.find_by_id(1)
 
 # customer1.name = 'Mark'
@@ -101,3 +107,8 @@ ticket4.save() # shouldn't work
 
 # p james_bond.booked_customers()
 # p star_wars.booked_customers()
+
+# p robbie.ticket_count()
+
+p james_bond.ticket_count()
+p star_wars.ticket_count()

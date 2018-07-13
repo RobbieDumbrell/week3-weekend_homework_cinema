@@ -58,4 +58,9 @@ class Customer
     return booked_films
   end
 
+  # How many tickets have been bought by a customer?
+  def ticket_count()
+    return self.booked_films.count
+  end
+
 end
