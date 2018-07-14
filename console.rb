@@ -4,156 +4,198 @@ require_relative('models/film')
 require_relative('models/ticket')
 require_relative('models/screening')
 
+# CREATING CUSTOMERS.
 
-customer1 = Customer.new({
+robbie = Customer.new({
   'name' => 'Robbie',
   'funds' => '100'
   })
 
-customer2 = Customer.new({
+ellie = Customer.new({
   'name' => 'Ellie',
   'funds' => '50'
   })
 
-customer3 = Customer.new({
+jack = Customer.new({
   'name' => 'Jack',
   'funds' => '5'
   })
 
-# customer1.save()
-# customer2.save()
-# customer3.save()
+wendy = Customer.new({
+  'name' => 'Wendy',
+  'funds' => '40'
+  })
 
+guy = Customer.new({
+  'name' => 'Guy',
+  'funds' => '20'
+  })
 
-film1 = Film.new({
-  'title' => 'James Bond',
+martin = Customer.new({
+  'name' => 'Martin',
+  'funds' => '65'
+  })
+
+lucy = Customer.new({
+  'name' => 'Lucy',
+  'funds' => '38'
+  })
+
+# SAVING CUSTOMERS TO DB.
+
+# robbie.save()
+# ellie.save()
+# jack.save()
+# wendy.save()
+# guy.save()
+# martin.save()
+# lucy.save()
+
+# CREATING FILMS.
+
+incredibles2 = Film.new({
+  'title' => 'The Incredibles 2',
   'price' => '10'
   })
 
-film2 = Film.new({
-  'title' => 'Star Wars',
+deadpool2 = Film.new({
+  'title' => 'Deadpool 2',
+  'price' => '10'
+  })
+
+adrift = Film.new({
+  'title' => 'Adrift',
+  'price' => '5'
+  })
+
+solo = Film.new({
+  'title' => 'Solo: A Star Wars Story',
   'price' => '15'
   })
 
-# film1.save()
-# film2.save()
+# SAVING FILMS TO DB.
 
-screening1 = Screening.new({
-  'film_id' => film1.id,
-  'show_time' => '19:00',
-  'total_seats' => '4',
-  'available_seats' => '4'
-  })
+# incredibles2.save()
+# deadpool2.save()
+# adrift.save()
+# solo.save()
 
-screening2 = Screening.new({
-  'film_id' => film1.id,
-  'show_time' => '22:00',
-  'total_seats' => '3',
-  'available_seats' => '3'
-  })
+# READING FILMS FROM DATABASE AND RETRIEVING.
 
-screening3 = Screening.new({
-  'film_id' => film2.id,
-  'show_time' => '17:00',
-  'total_seats' => '3',
-  'available_seats' => '3'
-  })
+incredibles2 = Film.find_by_id(1)
+deadpool2 = Film.find_by_id(2)
+adrift = Film.find_by_id(3)
+solo = Film.find_by_id(4)
 
-screening4 = Screening.new({
-  'film_id' => film2.id,
-  'show_time' => '20:00',
-  'total_seats' => '4',
-  'available_seats' => '4'
-  })
+# ADDING SCREENINGS FOR EACH PRE-EXISTING FILM, SAVES TO DATABASE WITHIN METHOD.
 
-# screening1.save()
-# screening2.save()
-# screening3.save()
-# screening4.save()
+# incredibles2.add_screening('15:00', '10')
+# incredibles2.add_screening('18:00', '10')
+# deadpool2.add_screening('19:00', '5')
+# deadpool2.add_screening('22:00', '10')
+# adrift.add_screening('16:30', '5')
+# adrift.add_screening('20:00', '5')
+# solo.add_screening('12:00', '10')
+# solo.add_screening('20:30', '10')
 
-ticket1 = Ticket.new({
-  'customer_id' => customer1.id,
-  'screening_id' => screening4.id
-  })
+# READING CUSTOMERS FROM DATABASE AND RETRIEVING.
 
-ticket2 = Ticket.new({
-  'customer_id' => customer1.id,
-  'screening_id' => screening1.id
-  })
+robbie = Customer.find_by_id(1)
+ellie = Customer.find_by_id(2)
+jack = Customer.find_by_id(3)
+wendy = Customer.find_by_id(4)
+guy = Customer.find_by_id(5)
+martin = Customer.find_by_id(6)
+lucy = Customer.find_by_id(7)
 
-ticket3 = Ticket.new({
-  'customer_id' => customer2.id,
-  'screening_id' => screening3.id
-  })
+# READING SCREENINGS FROM DATABASE AND RETRIEVING.
 
-ticket4 = Ticket.new({
-  'customer_id' => customer3.id,
-  'screening_id' => screening2.id
-  })
+incredibles2_1 = Screening.find_by_id(1)
+incredibles2_2 = Screening.find_by_id(2)
+deadpool2_1 = Screening.find_by_id(3)
+deadpool2_2 = Screening.find_by_id(4)
+adrift_1 = Screening.find_by_id(5)
+adrift_2 = Screening.find_by_id(6)
+solo_1 = Screening.find_by_id(7)
+solo_2 = Screening.find_by_id(8)
 
-ticket5 = Ticket.new({
-  'customer_id' => customer1.id,
-  'screening_id' => screening1.id
-  })
+# CUSTOMERS BUYING TICKETS, SAVES TO DATABASE WITHIN METHOD.
 
+# robbie.buy_ticket(incredibles2_1)
+# ellie.buy_ticket(incredibles2_1)
+# robbie.buy_ticket(solo_1)
+# ellie.buy_ticket(solo_1)
+# wendy.buy_ticket(solo_1)
+# guy.buy_ticket(solo_1)
+# jack.buy_ticket(incredibles2_2)
+# martin.buy_ticket(deadpool2_1)
+# lucy.buy_ticket(deadpool2_1)
+# martin.buy_ticket(adrift_1)
+# wendy.buy_ticket(deadpool2_1)
+# robbie.buy_ticket(deadpool2_1)
+# ellie.buy_ticket(deadpool2_1)
+# robbie.buy_ticket(deadpool2_1)
+# guy.buy_ticket(adrift_2)
 
+# UPDATING TESTS
 
-
-
-
-# p customer1
-# p film1
-
-# binding.pry
+# incredibles2.title = 'Toy Story 4'
+# incredibles2.update
 #
-# ticket1.save()
-# ticket2.save()
-# ticket3.save()
-# ticket4.save() # shouldn't work
-# ticket5.save()
-
-# robbie = Customer.find_by_id(1)
-# ellie = Customer.find_by_id(2)
-# jack = Customer.find_by_id(3)
-james_bond = Film.find_by_id(1)
-star_wars = Film.find_by_id(2)
-# ticket = Ticket.find_by_id(1)
-# screening = Screening.find_by_id(1)
-
-# robbie.name = 'Mark'
-# robbie.funds = '30'
+# deadpool2_2.show_time = '00:00'
+# deadpool2_2.update
 #
-# robbie.update
+# lucy.name = 'Melvin'
+# lucy.update
 
-# star_wars.title = 'Rogue One'
-# star_wars.price = '15'
-#
-# star_wars.update
+# DELETING TESTS
 
-# ticket.customer_id = ellie.id
 
-# ticket.update()
 
-# screening.film_id = star_wars.id
-# screening.show_time = '14:30'
-# screening.update()
 
-# customer2.delete()
-# film1.delete()
-# ticket1.delete()
+
+
+
+
+
+
+# LISTING ALL BOOKED FILMS OF SPECIFIC CUSTOMERS.
 
 # p robbie.booked_films()
 # p ellie.booked_films()
+# p jack.booked_films()
+# p wendy.booked_films()
+# p guy.booked_films()
+# p martin.booked_films()
+# p lucy.booked_films()
 
-# p james_bond.booked_customers()
-# p star_wars.booked_customers()
+# LISTING ALL BOOKED CUSTOMERS OF SPECIFIC FILMS.
+
+# p incredibles2.booked_customers()
+# p deadpool2.booked_customers()
+# p adrift.booked_customers()
+# p solo.booked_customers()
+
+# TESTING TICKET COUNTS OF SPECIFIC CUSTOMERS.
 
 # p robbie.ticket_count()
 # p ellie.ticket_count()
 # p jack.ticket_count()
+# p wendy.ticket_count()
+# p guy.ticket_count()
+# p martin.ticket_count()
+# p lucy.ticket_count()
 
-# p james_bond.ticket_count()
-# p star_wars.ticket_count()
+# TESTING TICKET COUNTS OF SPECIFIC FILMS.
 
-p star_wars.most_popular_screening
-p james_bond.most_popular_screening
+# p incredibles2.ticket_count()
+# p deadpool2.ticket_count()
+# p adrift.ticket_count()
+# p solo.ticket_count()
+
+# TESTING FILM MOST POPULAR SCREENING.
+
+# p incredibles2.most_popular_screening
+# p deadpool2.most_popular_screening
+# p adrift.most_popular_screening
+# p solo.most_popular_screening

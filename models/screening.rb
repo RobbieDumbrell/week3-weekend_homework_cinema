@@ -10,7 +10,12 @@ class Screening
     @film_id = options['film_id'].to_i
     @show_time = options['show_time']
     @total_seats = options['total_seats'].to_i
-    @available_seats = options['available_seats'].to_i
+
+    if options['available_seats'] != nil
+      @available_seats = options['available_seats'].to_i
+    else
+      @available_seats = @total_seats
+    end
   end
 
   # Create

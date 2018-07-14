@@ -1,5 +1,6 @@
 require_relative('../db/sql_runner')
 require_relative('film.rb')
+require_relative('ticket.rb')
 
 class Customer
 
@@ -57,12 +58,20 @@ class Customer
     values = [@id]
     result = SqlRunner.run(sql, values) # array of hashes.
     booked_films = result.map { |film| Film.new(film) }
-    return booked_films
+    return booked_films.uniq # no duplicates.
   end
 
   # How many tickets have been bought by a customer?
   def ticket_count()
     return self.booked_films.count
+  end
+
+  def buy_ticket(screening)
+    ticket = Ticket.new({
+      'customer_id' => @id,
+      'screening_id' => screening.id
+      })
+    ticket.save()
   end
 
 end

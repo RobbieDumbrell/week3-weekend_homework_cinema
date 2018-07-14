@@ -81,4 +81,10 @@ class Film
     return screening.show_time
   end
 
+  def add_screening(show_time, total_seats)
+    sql = "INSERT INTO screenings (film_id, show_time, total_seats, available_seats) VALUES ($1, $2, $3, $3) RETURNING id;"
+    values = [@id, show_time, total_seats]
+    result = SqlRunner.run(sql, values)
+  end
+
 end
