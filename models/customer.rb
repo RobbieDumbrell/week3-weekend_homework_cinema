@@ -66,6 +66,7 @@ class Customer
     return self.booked_films.count
   end
 
+  # Generates a ticket for the customer, need to pass in an existing screening.
   def buy_ticket(screening)
     ticket = Ticket.new({
       'customer_id' => @id,

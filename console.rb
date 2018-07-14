@@ -137,6 +137,10 @@ solo_2 = Screening.find_by_id(8)
 # robbie.buy_ticket(deadpool2_1)
 # guy.buy_ticket(adrift_2)
 
+# READING AND RETRIEVING TICKETS FROM DATABASE.
+
+# ticket3 = Ticket.find_by_id(3)
+
 # UPDATING TESTS
 
 # incredibles2.title = 'Toy Story 4'
@@ -150,13 +154,13 @@ solo_2 = Screening.find_by_id(8)
 
 # DELETING TESTS
 
+# incredibles2.delete
 
+# martin.delete
 
+# solo_2.delete
 
-
-
-
-
+# ticket3.delete
 
 
 # LISTING ALL BOOKED FILMS OF SPECIFIC CUSTOMERS.
