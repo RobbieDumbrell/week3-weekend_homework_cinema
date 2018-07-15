@@ -54,7 +54,8 @@ class Film
           	ON customers.id = tickets.customer_id
           INNER JOIN screenings
           	ON tickets.screening_id = screenings.id
-          WHERE screenings.film_id = $1;"
+          WHERE screenings.film_id = $1
+          ORDER BY customers.id;"
     values = [@id]
     result = SqlRunner.run(sql, values) # array of hashes.
     booked_customers = result.map { |customer| Customer.new(customer) }
